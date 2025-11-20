@@ -13,7 +13,7 @@ exports.sendEmail = async (req, res) => {
         try {
             sendToQueue({ email, name, url });
         } catch (err) {
-            console.error('Queue Error:', err);
+            co
             return res.status(503).json({ error: 'Queue service unavailable' });
         }
 
