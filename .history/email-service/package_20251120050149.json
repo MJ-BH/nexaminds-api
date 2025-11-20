@@ -13,10 +13,10 @@
   "description": "",
   "dependencies": {
     "amqplib": "^0.10.3",
-    "cors": "^2.8.5",    
+    "cors": "^2.8.5",       <-- MUST BE HERE
     "dotenv": "^16.0.3",
-    "express": "^4.18.2",  
-    "nodemailer": "^7.0.10",
+    "express": "^4.18.2",   <-- MUST BE HERE
+    "nodemailer": "^6.9.1",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0"
   },
