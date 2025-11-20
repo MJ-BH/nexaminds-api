@@ -34,7 +34,7 @@ const specs = swaggerJsDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 // Versioned Routes
-app.use('/', authRoutes);
+app.use('/api/v1/auth', authRoutes);
 
 
 app.get('/swagger.json', (req, res) => res.json(specs));

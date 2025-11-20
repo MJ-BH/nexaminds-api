@@ -36,7 +36,7 @@ const startWorker = async () => {
                 });
 
                 console.log("✅ Sent: %s", info.messageId);
-                console.log("🔗 Preview URL: %s", nodemailer.getTestMessageUrl(info));
+                                console.log("🔗 Preview URL: %s", nodemailer.getTestMessageUrl(info));
 
                 
                 // 2. Success: Remove message
