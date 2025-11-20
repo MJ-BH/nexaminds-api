@@ -62,4 +62,4 @@ jobs:
 
       - name: Build Containers
         # This ensures your Dockerfiles are valid and dependencies install correctly
-        run: docker compose build
+        run: docker-compose build
