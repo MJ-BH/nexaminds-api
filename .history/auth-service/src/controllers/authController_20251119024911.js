@@ -6,10 +6,7 @@ const jwt = require('jsonwebtoken');
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 };
-const validateEmail = (email) => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
-};
+
 // Register
 exports.register = async (req, res) => {
     try {
@@ -19,10 +16,6 @@ exports.register = async (req, res) => {
         if (!fullname || !email || !password) {
             return res.status(400).json({ error: 'All fields are required' });
         }
-         if (!validateEmail(email)) {
-            return res.status(400).json({ error: 'Invalid email format. Example: user@domain.com' });
-        }
-
 
         const existingUser = await User.findOne({ email });
         if (existingUser) return res.status(400).json({ error: 'Email already exists' });

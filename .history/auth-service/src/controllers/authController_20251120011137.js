@@ -6,10 +6,7 @@ const jwt = require('jsonwebtoken');
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 };
-const validateEmail = (email) => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
-};
+
 // Register
 exports.register = async (req, res) => {
     try {

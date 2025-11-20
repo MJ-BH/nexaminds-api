@@ -30,6 +30,7 @@ services:
 
   auth-service:
     build: ./auth-service
+    # We expose 3001 internally to docker network, external access optional
     expose:
       - "3001" 
     environment:

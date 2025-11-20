@@ -2,6 +2,7 @@ const axios = require('axios');
 
 // Configuration
 const AUTH_MS_URL = process.env.AUTH_SERVICE_URL || 'http://auth-service:3001';
+// 👇 New: We need the Email Service URL now
 const EMAIL_MS_URL = process.env.EMAIL_SERVICE_URL || 'http://email-service:3003';
 
 // Helpers

@@ -2,6 +2,7 @@ const axios = require('axios');
 
 // Configuration
 const AUTH_MS_URL = process.env.AUTH_SERVICE_URL || 'http://auth-service:3001';
+// 👇 New: We need the Email Service URL now
 const EMAIL_MS_URL = process.env.EMAIL_SERVICE_URL || 'http://email-service:3003';
 
 // Helpers
@@ -61,6 +62,7 @@ exports.buildUrl = async (req, res) => {
         // 5. Call Email Service API (Replaces direct Queue connection)
         let emailStatus = "Failed";
         try {
+            // 👇 This is the key change. We call the Service, not the Queue.
             await axios.post(`${EMAIL_MS_URL}/send`, {
                 email: userEmail,
                 name: name,
