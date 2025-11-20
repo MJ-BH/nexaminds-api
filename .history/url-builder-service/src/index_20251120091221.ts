@@ -1,4 +1,4 @@
-import express, { Application, Request, Response ,NextFunction  } from 'express';
+import express, { Application, Request, Response , } from 'express';
 import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsDoc from 'swagger-jsdoc';
@@ -39,7 +39,7 @@ app.get('/swagger.json', (req: Request, res: Response) => {
 app.use('/', urlRoutes);
 
 // --- ERROR HANDLER ---
-app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
+app.use((err: Error, req: Request, res: Response, next: Function) => {
     console.error(err.message);
     res.status(500).json({ error: 'Internal Server Error' });
 });
