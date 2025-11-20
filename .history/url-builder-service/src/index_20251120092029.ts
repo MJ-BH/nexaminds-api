@@ -45,6 +45,5 @@ app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
 });
 if (process.env.NODE_ENV !== 'test') {
 app.listen(PORT, () => console.log(`URL Builder running on ${PORT}`));
-}
 
 export default app;
