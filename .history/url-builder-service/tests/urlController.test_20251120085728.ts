@@ -51,6 +51,7 @@ describe('URL Builder Service Unit Tests', () => {
 
     // --- ERROR HANDLING ---
     it('should return 404 if User not found in Auth Service', async () => {
+        // ✅ Fix: Mock the Rejection structure
         const errorResponse = {
             response: createAxiosResponse('User not found', 404),
             message: 'Request failed'

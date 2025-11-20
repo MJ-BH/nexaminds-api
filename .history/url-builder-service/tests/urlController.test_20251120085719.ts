@@ -6,6 +6,7 @@ import axios from 'axios';
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
+// 👇 Helper to create a valid Axios Response object for TypeScript
 const createAxiosResponse = (data: any, status = 200) => ({
     data,
     status,
@@ -23,6 +24,7 @@ describe('URL Builder Service Unit Tests', () => {
 
     // --- HAPPY PATH ---
     it('should calculate logic and call APIs', async () => {
+        // ✅ Fix: Use the helper to provide full response structure
         mockedAxios.patch.mockResolvedValue(createAxiosResponse({ email: 'alice@test.com' }));
         mockedAxios.post.mockResolvedValue(createAxiosResponse({ status: 'Processing' }, 202));
 
@@ -51,6 +53,7 @@ describe('URL Builder Service Unit Tests', () => {
 
     // --- ERROR HANDLING ---
     it('should return 404 if User not found in Auth Service', async () => {
+        // ✅ Fix: Mock the Rejection structure
         const errorResponse = {
             response: createAxiosResponse('User not found', 404),
             message: 'Request failed'

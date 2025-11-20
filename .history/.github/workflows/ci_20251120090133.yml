@@ -3,9 +3,11 @@ name: Nexaminds Senior TypeScript Pipeline
 on:
   push:
     branches: 
+      - "main"
       - "refactor/typescript"
   pull_request:
     branches: 
+      - "main"
       - "refactor/typescript"
 
 jobs:
