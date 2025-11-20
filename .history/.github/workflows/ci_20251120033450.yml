@@ -1,0 +1,65 @@
+name: Nexaminds CI Pipeline
+
+on:
+  # Trigger on push or pull request to the main branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  # ------------------------------------------------------------------
+  # JOB 1: Run Unit Tests (Parallel Execution)
+  # ------------------------------------------------------------------
+  test-services:
+    name: Test ${{ matrix.service }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false # If one service fails, don't stop the others
+      matrix:
+        # Define the list of folders to test
+        service: [auth-service, url-builder-service, email-service]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: ./${{ matrix.service }}/package-lock.json
+
+      - name: Install Dependencies
+        working-directory: ./${{ matrix.service }}
+        run: npm install
+
+      - name: Run Jest Tests
+        working-directory: ./${{ matrix.service }}
+        run: npm test
+        env:
+          # Dummy Env Vars (Mocks handle the logic, but this prevents crash on process.env access)
+          CI: true
+          JWT_SECRET: test_secret
+          MONGO_URI: mongodb://localhost:27017/test_db
+          RABBITMQ_URL: amqp://localhost
+
+  # ------------------------------------------------------------------
+  # JOB 2: Verify Docker Build (Infrastructure Check)
+  # ------------------------------------------------------------------
+  build-containers:
+    name: Verify Docker Build
+    runs-on: ubuntu-latest
+    needs: test-services # Only run this if tests pass
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Check Docker Compose Config
+        run: docker-compose config
+
+      - name: Build Containers
+        # This ensures your Dockerfiles are valid and dependencies install correctly
+        run: docker-compose build
